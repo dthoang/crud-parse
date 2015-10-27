@@ -1,0 +1,49 @@
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>Product Reviews</title>
+
+	    <!-- jQuery, Bootstrap -->
+	    <script src="https://code.jquery.com/jquery.min.js"></script>
+	    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+	    <!-- Custom files -->
+	    <script type="text/javascript" src="js/review.js"></script>
+	    <link rel="stylesheet" href="css/main.css"/>
+	    <script src="https://www.parsecdn.com/js/parse-1.6.7.min.js"></script>
+
+	</head>
+
+	<body>
+    	<div class="container">
+            <h2>Review my product bitch.</h2>   
+            <div class="container" id="videoSolution">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/y84SSfUc9Kk" frameborder="0" allowfullscreen></iframe>
+			</div>
+    		<form>
+                <div class="form-group">
+                    <label for="review-title">Review Title</label>
+                    <input class="form-control" id="band"></input>
+                </div>
+                <div class="form-group">
+                    <label for="opinion">opinion</label>
+                    <input  class="form-control" id="website"></input>
+                </div>
+                <button class="btn btn-primary" type="submit">Save</button>
+
+            </form>
+            <!-- Here is where you should build your form.  
+                You can make it look nicer with bootstrap classes like "form-input" -->
+    	</div>
+
+    	<div class="container">
+            <ol id="list">
+            </ol>
+        </div>
+	</body>
+</html>
