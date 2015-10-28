@@ -5,43 +5,54 @@
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <title>Product Reviews</title>
+	    <title>AKB48 Song Review</title>
 
-	    <!-- jQuery, Bootstrap -->
-	    <script src="https://code.jquery.com/jquery.min.js"></script>
+	    <!-- Bootstrap -->
 	    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-	    <!-- Custom files -->
+        <!-- jQuery, JavaScript -->
+        <script src="https://code.jquery.com/jquery.min.js"></script>
 	    <script type="text/javascript" src="js/review.js"></script>
 	    <link rel="stylesheet" href="css/main.css"/>
+
+        <!-- Parse Import -->
 	    <script src="https://www.parsecdn.com/js/parse-1.6.7.min.js"></script>
 
+        <!-- Font Awesome Raty Import -->
+	    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="js/jquery.raty-fa.js"></script>
 	</head>
 
 	<body>
-    	<div class="container">
-            <h2>Review my product bitch.</h2>   
+    	<div id="product" class="container">
+            <h2>AKB48 New Single Review </h2>   
             <div class="container" id="videoSolution">
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/y84SSfUc9Kk" frameborder="0" allowfullscreen></iframe>
 			</div>
+            <p id="avgRate">Average rating: </p>
+            <p>AKB48's latest single released on August 25, 2015. Features Sashihara Rino, winner AKB48's last "election," or favorite member poll, in the front and center.</p>
+
     		<form>
+                <h3>Leave a review:</h3>
+                <div class="form-group">
+                    <div id="starRate"></div>
+                </div>
                 <div class="form-group">
                     <label for="review-title">Review Title</label>
-                    <input class="form-control" id="band"></input>
+                    <input class="form-control" id="review-title"></input>
                 </div>
                 <div class="form-group">
                     <label for="opinion">opinion</label>
-                    <input  class="form-control" id="website"></input>
+                    <input  class="form-control" id="opinion"></input>
                 </div>
                 <button class="btn btn-primary" type="submit">Save</button>
 
             </form>
-            <!-- Here is where you should build your form.  
-                You can make it look nicer with bootstrap classes like "form-input" -->
     	</div>
 
-    	<div class="container">
+    	<div id="pastReviews" class="container">
+            <h3>Reviews:</h3>
             <ol id="list">
             </ol>
         </div>
