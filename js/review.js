@@ -5,8 +5,6 @@ $(document).ready(function() {
 	// Create a new sub-class of the Parse.Object, with name "Review"
 	var Review = Parse.Object.extend('Review');
 
-	var query = new Parse.Query(Review);
-
 	$('#starRate').raty({
 		numberMax: 5,
 		score: 0
@@ -42,10 +40,9 @@ $(document).ready(function() {
         return false
 	});
 
-	// Write a function to get data
+	// Gets data from Parse
 	var getData = function() {
-		//query.notEqualTo('opinion', '')
-		//var query = new Parse.Query(Review)
+		var query = new Parse.Query(Review)
 		query.exists('title');
 		query.find({
 			success:function(results) {
@@ -54,7 +51,6 @@ $(document).ready(function() {
 		})
 	}
 
-	// A function to build your list
 	var buildList = function(data) {
 		$('ol').empty()
 
@@ -124,6 +120,7 @@ $(document).ready(function() {
 		})
 		destroyButton.appendTo(rateInfo);
 
+		//Appends everything so you can read past reviews
 		$('ol').append(li);
 		$('ol').append(div);
 		$('div:last').raty({
@@ -135,6 +132,5 @@ $(document).ready(function() {
 		$('ol').append(rateInfo);
 	};
 
-	// Call your getData function when the page loads
 	getData();
 });
