@@ -4,6 +4,7 @@ $(document).ready(function() {
 
 	// Create a new sub-class of the Parse.Object, with name "Review"
 	var Review = Parse.Object.extend('Review');
+	var query = new Parse.Query(Review);
 
 	$('#starRate').raty({
 		numberMax: 5,
@@ -42,7 +43,7 @@ $(document).ready(function() {
 
 	// Gets data from Parse
 	var getData = function() {
-		var query = new Parse.Query(Review)
+		var query = new Parse.Query(Review);
 		query.exists('title');
 		query.find({
 			success:function(results) {
@@ -94,7 +95,6 @@ $(document).ready(function() {
                 }
             })
         })
-        console.log("did it pass yet?")
 
         downButton.click(function() {
             query.get(item.id, {
