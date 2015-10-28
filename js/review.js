@@ -5,22 +5,26 @@ $(document).ready(function() {
 	// Create a new sub-class of the Parse.Object, with name "Review"
 	var Review = Parse.Object.extend('Review');
 
-	var query = new Parse.Query(Review)
+	var query = new Parse.Query(Review);
 
 	$('#starRate').raty({
-		numberMax: 5
+		numberMax: 5,
+		score: 0
 	});
 
 	// Saves new reviewer's data to Parse
 	$('form').submit(function() {;
 		var review = new Review()
 
+		//Sets up a title for user reviews
 		var title = $('#review-title').val();
 		review.set('title', title);
 
+		//Sets up user's reviews
 		var opinion = $('#opinion').val();
 		review.set('opinion', opinion);
 
+		//Sets up values for ratings
 		var starRate = $('#starRate').raty('score');
 		starRate = Number(starRate);
 		review.set('Rating', starRate);
@@ -28,14 +32,10 @@ $(document).ready(function() {
 		//For up and down votes
 		review.set("upVotes", 0);
 		review.set("downVotes", 0);
-			
+		
+		//Saves and resets the form to leave another review	
 		review.save(null, {
             success: function() {
-                title.val("");
-                opinion.val("");
-                $("#starRate").raty({
-                    score: 0
-                });
                 getData();
             }
         });
@@ -44,7 +44,9 @@ $(document).ready(function() {
 
 	// Write a function to get data
 	var getData = function() {
-		query.notEqualTo('opinion', '')
+		//query.notEqualTo('opinion', '')
+		//var query = new Parse.Query(Review)
+		query.exists('title');
 		query.find({
 			success:function(results) {
 				buildList(results)
@@ -79,14 +81,14 @@ $(document).ready(function() {
 		var downVotes = item.get('downVotes');
 
 		var li = $('<li><h3>' + title + '</h3>' + opinion + '</li>');
-		var rateInfo = $('<p id="rateInfo"></p>');
+		var rateInfo = $('</br><p id="rateInfo">Were this reviews helpful?</p>');
 		var div = ('<div id="ReviewDiv"></div>');
-		
-		//vote up and down buttons and functions
-		var downVotes = $('<button id="thumbDown" class="button fa fa-thumbs-o-down"></button>');
-		var upVotes = $('<button id="thumbUp" class ="button fa fa-thumbs-o-up"></button>');
 
-        upVotes.click(function() {
+		//vote up and down buttons and functions
+		var downButton = $('<button id="thumbDown" class="button fa fa-thumbs-o-down"></button>');
+		var upButton = $('<button id="thumbUp" class ="button fa fa-thumbs-o-up"></button>');
+
+        upButton.click(function() {
             query.get(item.id, {
                 success: function(review) {
                     review.increment('upVotes')
@@ -96,8 +98,9 @@ $(document).ready(function() {
                 }
             })
         })
+        console.log("did it pass yet?")
 
-        downVotes.click(function() {
+        downButton.click(function() {
             query.get(item.id, {
                 success: function(review) {
                     review.increment('downVotes')
@@ -108,8 +111,8 @@ $(document).ready(function() {
             })
         })
 
-		upVotes.appendTo(rateInfo);
-		downVotes.appendTo(rateInfo);
+		upButton.appendTo(rateInfo);
+		downButton.appendTo(rateInfo);
 		var totalVotes = upVotes + downVotes;
 
 		//Creates a button to "destroy" comments, removing them from Parse memory
@@ -119,8 +122,7 @@ $(document).ready(function() {
 				success:getData
 			})
 		})
-
-		destroyButton.appendTo(li);
+		destroyButton.appendTo(rateInfo);
 
 		$('ol').append(li);
 		$('ol').append(div);
@@ -128,6 +130,7 @@ $(document).ready(function() {
 		 	readOnly: true,
 		 	score: rate
 		});
+		$('ol').append('<p>');
 		$('ol').append(upVotes + " people out of " + totalVotes + " liked this review!");
 		$('ol').append(rateInfo);
 	};
