@@ -30,9 +30,16 @@ $(document).ready(function() {
 		review.set("downVotes", 0);
 			
 		review.save(null, {
-			success:getData
-		});
-		return false
+            success: function() {
+                title.val("");
+                opinion.val("");
+                $("#starRate").raty({
+                    score: 0
+                });
+                getData();
+            }
+        });
+        return false
 	});
 
 	// Write a function to get data
@@ -67,12 +74,14 @@ $(document).ready(function() {
 	var addItem = function(item) {
 		var opinion = item.get('opinion');
 		var title = item.get('title');
-		var div = ('<div id="ReviewDiv"></div>');
 		var rate = item.get('Rating');
 		var upVotes = item.get('upVotes');
 		var downVotes = item.get('downVotes');
-		var li = $('<li><h3>' + title + '</h3>' + opinion + '</li>');
 
+		var li = $('<li><h3>' + title + '</h3>' + opinion + '</li>');
+		var rateInfo = $('<p id="rateInfo"></p>');
+		var div = ('<div id="ReviewDiv"></div>');
+		
 		//vote up and down buttons and functions
 		var downVotes = $('<button id="thumbDown" class="button fa fa-thumbs-o-down"></button>');
 		var upVotes = $('<button id="thumbUp" class ="button fa fa-thumbs-o-up"></button>');
@@ -99,12 +108,12 @@ $(document).ready(function() {
             })
         })
 
-		upVotes.appendTo(li);
-		downVotes.appendTo(li);
+		upVotes.appendTo(rateInfo);
+		downVotes.appendTo(rateInfo);
 		var totalVotes = upVotes + downVotes;
 
 		//Creates a button to "destroy" comments, removing them from Parse memory
-		var destroyButton = $('<button><i class="button fa fa-icon-remove-sign "></i></button>');
+		var destroyButton = $('<button class="btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button>');
 		destroyButton.click(function() {
 			item.destroy({
 				success:getData
@@ -119,7 +128,8 @@ $(document).ready(function() {
 		 	readOnly: true,
 		 	score: rate
 		});
-		$('ol').append(Number(upVotes) + " people out of " + Number(totalVotes) + " liked this review!");
+		$('ol').append(upVotes + " people out of " + totalVotes + " liked this review!");
+		$('ol').append(rateInfo);
 	};
 
 	// Call your getData function when the page loads
